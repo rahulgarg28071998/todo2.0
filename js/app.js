@@ -33,6 +33,7 @@ const addTask = (taskValue) => {
 const removeTask = (event) => {
     let tasks = event.target.parentNode.parentNode;
     let task = event.target.parentNode;
+    // document.getElementById("DeleteMessage").innerHTML= "jjj"
     tasks.removeChild(task);
 }
 
@@ -93,8 +94,8 @@ for(const dropzone of dropzones) {
 
 document.getElementById('add-task-button').addEventListener('click', function(event) {
     event.preventDefault();
-    let taskValue = document.getElementById('task-value-form').value;
-    console.log(taskValue);
+    // let taskValue = document.getElementById('task-value-form').value;
+    // console.log(taskValue);
     // taskValue.
     let taskTitle = document.getElementById('task-title').value;
     console.log(taskTitle)
@@ -112,8 +113,15 @@ document.getElementById('add-task-button').addEventListener('click', function(ev
         return 0;
     }
 
+    
     addTaskDescription(taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription);
-    document.getElementById('task-value-form').value = '';
+    
+    document.getElementById('task-title').value = '';
+    document.getElementById('asignee').value = '';
+    document.getElementById('AssignedOn').value = '';
+    document.getElementById('DueDate').value = '';
+    document.getElementById('task-description').value = '';
+
 });
 
 const addTaskDescription = (taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription) => {
@@ -162,14 +170,20 @@ const addTaskDescription = (taskTitle,taskAsignee,taskAssignedOn,taskDueDate,tas
 
     let tasks = document.getElementById('tasks-added');
     tasks.insertBefore(task, tasks.childNodes[0]);
-    console.log("llll")
+    
 
 }
 
 
+function updateduedate()
+{
+    let AssignedDate = document.getElementById("AssignedOn").value
+    console.log(AssignedDate)
+    let DueDate = document.getElementById("DueDate")
+    DueDate.setAttribute("min",AssignedDate)
 
-let AssignedDate = document.getElementById("AssignedOn")
-AssignedDate.setAttribute("useCurrent","true")
+}
+
 
 //add todos document structure in basecamp
 //add multiple assignee in task
