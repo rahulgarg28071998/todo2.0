@@ -184,6 +184,16 @@ function updateduedate()
 
 }
 
+// fetch('http://localhost:3000/post')
+// .then(results=>{
+//     return results.json();
+// })
+// .then(data=>{
+//     console.log(data);
+// })
+
+const axios = require('axios').default;
+
 
 //add todos document structure in basecamp
 //add multiple assignee in task
