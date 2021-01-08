@@ -1,6 +1,7 @@
 const express = require('express');
 var mongoose = require('mongoose');
 const app = express();
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv/config')
@@ -9,13 +10,20 @@ require('dotenv/config')
 app.use(bodyParser.json());
 //Routes
 
+app.get('/',  (req, res) => {
+    console.log(__dirname)
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+})
+
 const postRoute = require('./routes/post')
 app.use('/post',postRoute);
+
+
 
 //add db
 mongoose.connect(
     process.env.DB_CONNECTION,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log("connected to db"));
-
 app.listen(3000);
+app.use(express.static(__dirname + '/public'));

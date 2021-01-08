@@ -18,7 +18,11 @@ router.post('/', async (req, res) => {
     console.log("post called");
     const task = new Task({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        asignedOn:req.body.asignedOn,
+        dueDate:req.body.dueDate,
+        asignee:req.body.asignee,
+        status:req.body.status
     });
     try {
         const savedPost = await task.save()
