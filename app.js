@@ -6,7 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv/config')
 
-// app.use(cors);
+app.use(cors);
 app.use(bodyParser.json());
 //Routes
 

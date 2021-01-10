@@ -183,14 +183,7 @@ function updateduedate()
 
 async function  getTask()
 {
-    // let taskList =  fetch(url)
-    // .then(results=>{
-    //     return results.json();
-    // })
-    // console.log(taskList)
-    // for (var key of Object.keys(taskList)) {
-    //     console.log(key + " -> " + p[key])
-    // }
+   
     const response = await fetch(url);
     const taskList = await response.json();
     console.log(taskList);
@@ -198,13 +191,7 @@ async function  getTask()
     {
         console.log(taskList[i].title);
         let task = taskList[i];
-        addTaskDescription(task.title,task.asignee,task.asignedOn,task.dueDate,task.description)
-//asignedOn: "2021-01-06T07:02:23.946Z"
-// asignee: "String"
-// description: "String"
-// dueDate: "2021-01-06T07:02:23.946Z"
-// status: 1
-// title: "String"
+        addTaskDescription(task.title,task.asignee,task.asignedOn,task.dueDate,task.description);
     }
     // addTaskDescription()
 }
