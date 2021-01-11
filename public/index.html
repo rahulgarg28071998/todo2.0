@@ -19,18 +19,21 @@
     </head>
     <body style="background-image: url('backgroundImage.jpg');background-repeat: no-repeat; background-attachment: fixed;
     background-size: cover;"  onload=getTask()>
-        <header>
-            <nav></nav>
+        <header class="navbar-fixed-top">
+            
             <div id="navbar">
                 <div class="burger">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
                 </div>
-                <input id="search" placeholder="Search..." autocomplete="off">
+                <div>
+                  <input id="search" placeholder="Search your task name" autocomplete="off">
+                  <i  class="fa fa-search" aria-hidden="true"></i>
+                </div>
                 <div id="app-title">
-                    <div id="check">✅</div>
-                    <div><h1>Todo Board</h1></div>
+                    <img class = "logo" src="todo_logo.jpg" alt="logo"/>
+                    <div><h1> Board</h1></div>
                     
                 </div>
                 
@@ -104,7 +107,7 @@
             </section>
             <section id="columns">
                 <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(214, 166, 108);">Backlog</h3>
+                    <h3 class="column-title" style="background-color: rgb(255, 193, 117);">Backlog</h3>
                     <ul class="tasks" id="tasks-added">
                         
                             <li class="task fill" draggable="true" data-toggle="tooltip" data-placement="top" title="Hooray!">
@@ -121,13 +124,13 @@
 
                 
                 <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(121, 233, 195);">Todo</h3>
+                    <h3 class="column-title" style="background-color: rgb(128, 255, 212);">Todo</h3>
                 </div>
                 <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(97, 191, 194);">Review</h3>
+                    <h3 class="column-title" style="background-color: rgb(116, 250, 255);">Review</h3>
                 </div>
                 <div class="column dropzone" >
-                    <h3 class="column-title"style="background-color: rgb(121, 233, 195);;">Done</h3>
+                    <h3 class="column-title"style="background-color: rgb(121, 233, 195);">Done</h3>
                 </div>
 
 
