@@ -1,5 +1,6 @@
 const trash = "https://image.flaticon.com/icons/svg/1214/1214428.svg"
 const url = "https://todo-board-deploy.herokuapp.com/post"
+// const url = "http://localhost:3000/post/"
 document.getElementById('add-task').addEventListener('click', function() {
     let taskValue = document.getElementById('task-value').value;
     if (taskValue) addTask(taskValue);
@@ -33,6 +34,7 @@ const addTask = (taskValue) => {
 const removeTask = (event) => {
     let tasks = event.target.parentNode.parentNode;
     let task = event.target.parentNode;
+    console.log(event.target.parentNode);
     // document.getElementById("DeleteMessage").innerHTML= "jjj"
     tasks.removeChild(task);
 }
@@ -92,26 +94,38 @@ for(const dropzone of dropzones) {
 }
 
 
-document.getElementById('add-task-button').addEventListener('click', function(event) {
-    event.preventDefault();
+document.getElementById('add-task-button').addEventListener('click', async function(event) {
     let taskTitle = document.getElementById('task-title').value;
-    console.log(taskTitle)
     let taskAsignee = document.getElementById('asignee').value;
-    console.log(taskAsignee)
     let taskAssignedOn = document.getElementById('AssignedOn').value;
-    console.log(taskAssignedOn)
     let taskDueDate = document.getElementById('DueDate').value;
-    console.log(typeof taskDueDate)
     let taskDescription = document.getElementById('task-description').value;
-    console.log(taskDescription)
-
+    
     if (taskDueDate<taskAssignedOn)
     {    alert("Add Due date greater then assigned date")
         return 0;
     }
 
+    var payload = JSON.stringify({"title": taskTitle,
+    "asignee": taskAsignee,
+    "asignedOn": taskAssignedOn,
+    "dueDate": taskDueDate,
+    "description": taskDescription,
+    "status": "1"});
+
     
-    addTaskDescription(taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription);
+    const rawResponse = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        body: payload
+    });
+        const content = await rawResponse.json();
+        console.log(content);
+    
+    await addTaskDescription(taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription);
     
     document.getElementById('task-title').value = '';
     document.getElementById('asignee').value = '';
@@ -121,14 +135,14 @@ document.getElementById('add-task-button').addEventListener('click', function(ev
 
 });
 
-const addTaskDescription = (taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription) => {
+const addTaskDescription = async (taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription,_id) => {
     let task = document.createElement('li');
     task.classList.add('task');
     task.classList.add('fill');
     task.setAttribute("draggable", "true");
     task.setAttribute("data-toggle","tooltip");
     task.setAttribute("data-placement","top")
-    task.setAttribute("title","Due date is : "+taskDueDate+"\nTask was assigned on: "+taskAssignedOn)
+    task.setAttribute("title","Due date is : "+taskDueDate+"\nTask was assigned on: "+taskAssignedOn+"\nAssigneed By:"+taskAsignee)
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
     //data-toggle="tooltip" data-placement="top" title="Hooray!"
@@ -168,7 +182,8 @@ const addTaskDescription = (taskTitle,taskAsignee,taskAssignedOn,taskDueDate,tas
     let tasks = document.getElementById('tasks-added');
     tasks.insertBefore(task, tasks.childNodes[0]);
     
-
+    
+    
 }
 
 
@@ -186,12 +201,11 @@ async function  getTask()
    
     const response = await fetch(url);
     const taskList = await response.json();
-    console.log(taskList);
     for(let i in taskList)
     {
-        console.log(taskList[i].title);
         let task = taskList[i];
-        addTaskDescription(task.title,task.asignee,task.asignedOn,task.dueDate,task.description);
+        console.log(task);
+        addTaskDescription(task.title,task.asignee,task.asignedOn,task.dueDate,task.description,task._id);
     }
     // addTaskDescription()
 }
