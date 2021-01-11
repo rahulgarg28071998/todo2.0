@@ -1,6 +1,6 @@
 const trash = "https://image.flaticon.com/icons/svg/1214/1214428.svg"
-const url = "https://todo-board-deploy.herokuapp.com/post"
-// const url = "http://localhost:3000/post/"
+// const url = "https://todo-board-deploy.herokuapp.com/post"
+const url = "http://localhost:3000/post/"
 document.getElementById('add-task').addEventListener('click', function() {
     let taskValue = document.getElementById('task-value').value;
     if (taskValue) addTask(taskValue);
@@ -14,6 +14,7 @@ const addTask = (taskValue) => {
     task.setAttribute("draggable", "true");
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
+    
 
     let taskContent = document.createElement('div');
     taskContent.classList.add('task-content');
@@ -31,11 +32,18 @@ const addTask = (taskValue) => {
     tasks.insertBefore(task, tasks.childNodes[0]);
 }
 
-const removeTask = (event) => {
+const removeTask = async (event) => {
     let tasks = event.target.parentNode.parentNode;
     let task = event.target.parentNode;
-    console.log(event.target.parentNode);
+    let taskId = event.target.parentNode.getAttribute("name");
+    console.log(taskId);
     // document.getElementById("DeleteMessage").innerHTML= "jjj"
+    const rawResponse = await fetch(url+ taskId, {
+                method: 'DELETE',
+                })
+                .then(res => res.json()) // or res.json()
+                .then(res => console.log(res));
+
     tasks.removeChild(task);
 }
 
@@ -122,10 +130,10 @@ document.getElementById('add-task-button').addEventListener('click', async funct
           },
         body: payload
     });
-        const content = await rawResponse.json();
-        console.log(content);
+        // const content = await rawResponse.json();
+        // console.log(content);
     
-    await addTaskDescription(taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription);
+    addTaskDescription(taskTitle,taskAsignee,taskAssignedOn,taskDueDate,taskDescription,content._id);
     
     document.getElementById('task-title').value = '';
     document.getElementById('asignee').value = '';
@@ -145,6 +153,7 @@ const addTaskDescription = async (taskTitle,taskAsignee,taskAssignedOn,taskDueDa
     task.setAttribute("title","Due date is : "+taskDueDate+"\nTask was assigned on: "+taskAssignedOn+"\nAssigneed By:"+taskAsignee)
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
+    task.setAttribute('name',_id);
     //data-toggle="tooltip" data-placement="top" title="Hooray!"
 
     let Title = document.createElement('div');
