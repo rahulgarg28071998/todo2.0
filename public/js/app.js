@@ -1,6 +1,6 @@
 const trash = "https://image.flaticon.com/icons/svg/1214/1214428.svg"
-// const url = "https://todo-board-deploy.herokuapp.com/post/"
-const url = "http://localhost:3000/post/"
+const url = "https://todo-board-deploy.herokuapp.com/post/"
+// const url = "http://localhost:3000/post/"
 document.getElementById('add-task').addEventListener('click', function () {
     let taskValue = document.getElementById('task-value').value;
     if (taskValue) addTask(taskValue);
@@ -167,6 +167,7 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     taskContent.classList.add('task-content');
     taskContent.innerText = taskDescription;
 
+    // let assignedDate = document.cre
 
 
     let trash = document.createElement('div');
