@@ -1,6 +1,7 @@
 
 body {
   line-height: 1;
+  font-size: 12px;
 }
 ol,
 ul {
@@ -55,6 +56,9 @@ div{
   height: 50px;
   border-radius: 25px;
 }
+/* #navbar #search-div{
+  border :thick solid #0000FF;
+} */
 #navbar #search ::placeholder {
   color: #E4E6E8;
 }
@@ -77,7 +81,7 @@ div{
   font-family: 'Lato';
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 29px;
   /* identical to box height */
   display: flex;
@@ -143,7 +147,7 @@ body {
 #add-task-form #task-value {
   padding-left: 16px;
   margin-top: 1px;
-  height: 46px;
+  /* height: 46px; */
   width: 240px;
   border-radius: 0px;
   margin: 0 8px 0 8px;
@@ -210,7 +214,7 @@ body {
   font-family: 'Lato', Arial, Helvetica, sans-serif;
   font-weight: 600;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   border-radius: inherit;
 }
 .task {
@@ -222,31 +226,41 @@ body {
   border: 5px solid #EBEDF0;
   box-sizing: border-box;
   border-radius: 2px;
-  min-height: 80px;
+  min-height: 180px;
   /* width: 288px; */
 }
 .task:nth-child(1) {
   margin-top: 32px;
 }
 .task .task-title {
-  margin: 16px 16px 0 16px;
+  /* margin: 16px 16px 0 16px; */
   font-family: 'Lato';
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   font-weight: bold;
   color: #54585A;
+  border-bottom: 5px solid #1B2437;
 }
 .task .task-content {
-  margin: 16px;
+  /* margin: 16px; */
   font-family: 'Lato';
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   color: #54585A;
   overflow-wrap: break-word;
 }
-
+.task .task-dates{
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #54585A;
+  overflow-wrap: break-word;
+  width: 50%;
+  float: left;
+}
 .task:hover {
   background: #FFFFFF;
   border: 1px solid #4786FF;
@@ -261,8 +275,19 @@ body {
   font-family: 'Lato';
   color: #54585A;
 }
+.task .edit {
+  position: absolute;
+  bottom: 8px;
+  float: right;
+  font-family: 'Lato';
+  color: #54585A;
+}
 .task .trash:hover {
   color: #c42d1c;
+}
+
+.task .edit:hover{
+  color: #008000;
 }
 .hold:active:hover {
   border: solid 3px blue;

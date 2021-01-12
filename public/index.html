@@ -28,8 +28,8 @@
                     <div class="line"></div>
                 </div>
                 <div>
-                  <input id="search" placeholder="Search your task name" autocomplete="off">
-                  <i  class="fa fa-search" aria-hidden="true"></i>
+                  <input id="search" placeholder="&#xF002;  Search for task name"  style="font-family:Arial, FontAwesome"  autocomplete="off">
+                
                 </div>
                 <div id="app-title">
                     <img class = "logo" src="todo_logo.jpg" alt="logo"/>
@@ -52,8 +52,8 @@
                 <div id="add-task-form">
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: flex;
                     justify-content: center;
-                    align-items: center;">Add Task</button>
-                    <input id="task-value" placeholder="Add Rapid task">
+                    align-items: center;" onfocus="toogleColor()">Add Task</button>
+                    <input id="task-value" placeholder="Add Task without description">
                     <button id="add-task">+</button>
                    
 
@@ -112,11 +112,16 @@
                         
                             <li class="task fill" draggable="true" data-toggle="tooltip" data-placement="top" title="Hooray!">
                                 <div class="task-title">task1</div>
+                                
+                                <div class="row" style="display: block;">
+                                  <div class="col-md-6 task-dates">13,jan 2020</div>
+                                  <div class="col-md-6" ><i class="fa fa-user fa-2x" aria-hidden="true"></i>Nikhil</div>
+                                </div>
                                 <div class="task-content">create todolist1 </div>
                                 
-                                <div class="trash" data-toggle="modal" data-target="#myModal2">X</div>
+                                <div class="trash" data-toggle="modal" data-target="#myModal2"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></div>
                                 
-                                <div class="edit" data-toggle="modal" data-target="#myModal3"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+                                <div class="edit" data-toggle="modal" data-target="#myModal3"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
                             </li>
                         
                     </ul>
@@ -146,10 +151,10 @@
                         <h4 class="modal-title">Confirm to delete</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Task is being deleted.</p>
+                        <p>Do you want to delete the task? This action is not reversable!</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-danger" type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteTask()">Delete</button>
                       </div>
                     </div>
                 

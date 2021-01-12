@@ -1,6 +1,6 @@
 const trash = "https://image.flaticon.com/icons/svg/1214/1214428.svg"
-const url = "https://todo-board-deploy.herokuapp.com/post/"
-// const url = "http://localhost:3000/post/"
+// const url = "https://todo-board-deploy.herokuapp.com/post/"
+const url = "http://localhost:3000/post/"
 document.getElementById('add-task').addEventListener('click', function () {
     let taskValue = document.getElementById('task-value').value;
     if (taskValue) addTask(taskValue);
@@ -33,9 +33,10 @@ const addTask = (taskValue) => {
 }
 
 const removeTask = async (event) => {
-    let tasks = event.target.parentNode.parentNode;
-    let task = event.target.parentNode;
-    let taskId = event.target.parentNode.getAttribute("name");
+
+    let tasks = event.target.parentNode.parentNode.parentNode;
+    let task = event.target.parentNode.parentNode;
+    let taskId = event.target.parentNode.parentNode.getAttribute("name");
     console.log(taskId);
     // document.getElementById("DeleteMessage").innerHTML= "jjj"
     const rawResponse = await fetch(url + taskId, {
@@ -172,15 +173,26 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     trash.classList.add('trash');
     trash.setAttribute("data-toggle", "modal");
     trash.setAttribute("data-target", "#myModal2")
-    trash.innerText = "X";
-    trash.addEventListener('click', removeTask);
+    trash.addEventListener('click', fixId);
+
+    let trashicon = document.createElement('i');
+    trashicon.classList.add('fa');
+    trashicon.classList.add('fa-trash')
+    trashicon.classList.add("fa-lg")
+    trashicon.setAttribute("aria-hidden", "true");
+
+    trash.appendChild(trashicon);
 
     let edit = document.createElement('div');
     edit.classList.add('edit');
+    edit.setAttribute("data-toggle", "modal");
+    edit.setAttribute("data-target", "#myModal3")
+    edit.addEventListener('click', fixId);
 
     let editicon = document.createElement('i');
     editicon.classList.add('fa');
     editicon.classList.add('fa-pencil-square-o')
+    editicon.classList.add("fa-lg")
     editicon.setAttribute("aria-hidden", "true");
 
     edit.appendChild(editicon);
@@ -196,7 +208,26 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
 
 
 }
+var deleteTaskId = null;
+var deleteTasksevent = null;
+var deleteTaskevent = null;
+const fixId = (event) => {
+    
+    deleteTaskId = event.target.parentNode.parentNode.getAttribute("name");
+    deleteTasksevent = event.target.parentNode.parentNode.parentNode;
+    deleteTaskevent = event.target.parentNode.parentNode;
+}
 
+async function deleteTask(event)
+{
+    const rawResponse = await fetch(url + deleteTaskId, {
+        method: 'DELETE',
+    })
+        .then(res => res.json()) // or res.json()
+        .then(res => console.log(res));
+
+        deleteTasksevent.removeChild(deleteTaskevent);
+}
 
 function updateduedate() {
     let AssignedDate = document.getElementById("AssignedOn").value
@@ -259,6 +290,7 @@ async function getTask() {
 // add task quickly , change
 //rounded border , 
 //when add text enable to rapid task
-//delete on close , "do you want to delete the task , are u sure" , dleete button color
 //delete bin addition and edit pencil
 //add tick to navigate to next paletes/dropzone
+
+//delete on close , "do you want to delete the task , are u sure" , dleete button color
