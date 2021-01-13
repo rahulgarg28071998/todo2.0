@@ -6,7 +6,13 @@ document.getElementById('add-task').addEventListener('click', function () {
     if (taskValue) addTask(taskValue);
     document.getElementById('task-value').value = '';
 });
-
+function success() {
+    if (document.getElementById("task-value").value === "") {
+        document.getElementById('add-task').disabled = true;
+    } else {
+        document.getElementById('add-task').disabled = false;
+    }
+}
 const addTask = (taskValue) => {
     let task = document.createElement('li');
     task.classList.add('task');
@@ -153,7 +159,13 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     task.setAttribute("draggable", "true");
     task.setAttribute("data-toggle", "tooltip");
     task.setAttribute("data-placement", "top")
-    task.setAttribute("title", "Due date is : " + taskDueDate + "\nTask was assigned on: " + taskAssignedOn + "\nAssigneed By:" + taskAsignee)
+    let formattedAssignedDate = new Date(taskAssignedOn).toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+    }).replace(/ /g, '-');
+    let formattedDueDate = new Date(taskDueDate).toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+    }).replace(/ /g, '-');
+    task.setAttribute("title", "Due date: " + formattedDueDate + "\nAssigned on : " + formattedAssignedDate + "\nAssigneed By : " + taskAsignee)
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
     task.setAttribute('name', _id);
@@ -163,6 +175,39 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     Title.classList.add('task-title');
     Title.innerText = taskTitle;
 
+
+    let row = document.createElement('div');
+    row.classList.add('row');
+    row.classList.add('username-row');
+
+    let AssignedOn = document.createElement('div');
+    AssignedOn.classList.add('col-md-6');
+    AssignedOn.classList.add('task-dates');
+    let date = new Date(taskAssignedOn);
+    let formattedDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+    }).replace(/ /g, '-');
+    AssignedOn.innerText = formattedDate;
+
+    let user = document.createElement('div');
+    user.classList.add('col-md-6');
+    user.classList.add('task-dates');
+
+
+    let usericon = document.createElement('i');
+    usericon.classList.add('fa');
+    usericon.classList.add('fa-user')
+    usericon.classList.add("fa-lg")
+    usericon.setAttribute("aria-hidden", "true");
+
+    let username = document.createElement('div');
+    username.innerText = taskAsignee;
+
+    user.appendChild(usericon);
+    user.appendChild(username);
+
+    row.appendChild(AssignedOn);
+    row.appendChild(user);
     let taskContent = document.createElement('div');
     taskContent.classList.add('task-content');
     taskContent.innerText = taskDescription;
@@ -199,6 +244,7 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     edit.appendChild(editicon);
 
     task.appendChild(Title);
+    task.appendChild(row);
     task.appendChild(taskContent);
     task.appendChild(trash);
     task.appendChild(edit)
@@ -213,21 +259,20 @@ var deleteTaskId = null;
 var deleteTasksevent = null;
 var deleteTaskevent = null;
 const fixId = (event) => {
-    
+
     deleteTaskId = event.target.parentNode.parentNode.getAttribute("name");
     deleteTasksevent = event.target.parentNode.parentNode.parentNode;
     deleteTaskevent = event.target.parentNode.parentNode;
 }
 
-async function deleteTask(event)
-{
+async function deleteTask(event) {
     const rawResponse = await fetch(url + deleteTaskId, {
         method: 'DELETE',
     })
         .then(res => res.json()) // or res.json()
         .then(res => console.log(res));
 
-        deleteTasksevent.removeChild(deleteTaskevent);
+    deleteTasksevent.removeChild(deleteTaskevent);
 }
 
 function updateduedate() {
@@ -249,7 +294,6 @@ async function getTask() {
     }
     // addTaskDescription()
 }
-
 
 // fetch(url)
 // .then(results=>{

@@ -53,8 +53,8 @@
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: flex;
                     justify-content: center;
                     align-items: center;" onfocus="toogleColor()">Add Task</button>
-                    <input id="task-value" placeholder="Add Task without description">
-                    <button id="add-task">+</button>
+                    <input id="task-value" onkeyup="success()" placeholder="Add Task without description">
+                    <button id="add-task" disabled>+</button>
                    
 
                     <div class="modal fade" id="myModal" role="dialog">
@@ -113,9 +113,9 @@
                             <li class="task fill" draggable="true" data-toggle="tooltip" data-placement="top" title="Hooray!">
                                 <div class="task-title">task1</div>
                                 
-                                <div class="row" style="display: block;">
+                                <div class="row" >
                                   <div class="col-md-6 task-dates">13,jan 2020</div>
-                                  <div class="col-md-6" ><i class="fa fa-user fa-2x" aria-hidden="true"></i>Nikhil</div>
+                                  <div class="col-md-6 task-dates" style="display: flex;" ><i class="fa fa-user fa-2x" aria-hidden="true"></i><div>Nikhil</div></div>
                                 </div>
                                 <div class="task-content">create todolist1 </div>
                                 
@@ -135,7 +135,7 @@
                     <h3 class="column-title" style="background-color: rgb(116, 250, 255);">Review</h3>
                 </div>
                 <div class="column dropzone" >
-                    <h3 class="column-title"style="background-color: rgb(121, 233, 195);">Done</h3>
+                    <h3 class="column-title"style="background-color: rgb(92, 186, 19);">Done</h3>
                 </div>
 
 
