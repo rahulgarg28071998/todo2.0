@@ -1,78 +1,85 @@
 <!DOCTYPE html>
 
 </body>
+
 </html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
-        <link rel="stylesheet"   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="js/app.js" defer></script> 
-        <title>Todo Board</title>
-    </head>
-    <body style="background-image: url('backgroundImage.jpg');background-repeat: no-repeat; background-attachment: fixed;
-    background-size: cover;"  onload=getTask()>
-        <header class="navbar-fixed-top">
-            
-            <div id="navbar">
-                <div class="burger">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <div>
-                  <input id="search" placeholder="&#xF002;  Search for task name"  style="font-family:Arial, FontAwesome"  autocomplete="off">
-                
-                </div>
-                <div id="app-title">
-                    <img class = "logo" src="todo_logo.jpg" alt="logo"/>
-                    <div><h1> Board</h1></div>
-                    
-                </div>
-                
-            </div>
-        </header>
-        <main id="app">
-            <section id="board">
-                <div id="infos">
-                    <div class="square"><p id="letter">R</p></div>
-                    <div id="infos-content">
-                        <div class="infos-title">Todo</div>
-                        <div class="infos-company">Rahul</div>
-                    </div>
-                    
-                </div>
-                <div id="add-task-form">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: flex;
-                    justify-content: center;
-                    align-items: center;" onfocus="toogleColor()">Add Task</button>
-                    <input id="task-value" onkeyup="success()" placeholder="Add Task without description">
-                    <button id="add-task" disabled>+</button>
-                   
 
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                        
-                          <!-- Modal content-->
-                          <div class="modal-content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/app.js" defer></script>
+    <title>Todo Board</title>
+</head>
+
+<body style="background-image: url('backgroundImage.jpg');background-repeat: no-repeat; background-attachment: fixed;
+    background-size: cover;" onload=getTask()>
+    <header class="navbar-fixed-top">
+
+        <div id="navbar">
+            <div class="burger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div>
+                <input id="search" placeholder="&#xF002;  Search for task name" style="font-family:Arial, FontAwesome" autocomplete="off">
+
+            </div>
+            <div id="app-title">
+                <img class="logo" src="todo_logo.jpg" alt="logo" />
+                <div>
+                    <h1> Board</h1>
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+    <main id="app">
+        <section id="board">
+            <div id="infos">
+                <div class="square">
+                    <p id="letter">R</p>
+                </div>
+                <div id="infos-content">
+                    <div class="infos-title">Todo</div>
+                    <div class="infos-company">Rahul</div>
+                </div>
+
+            </div>
+            <div id="add-task-form">
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: flex;
+                    justify-content: center;
+                    align-items: center;">Add Task</button>
+                <input id="task-value" onkeyup="success()" placeholder="Add Task without description">
+                <button id="add-task" disabled>+</button>
+
+
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
                             <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title" style="text-align: center;"><strong>Add Task details</strong></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="text-align: center;"><strong>Add Task details</strong></h4>
                             </div>
                             <div class="modal-body">
                                 <form id="task-value-form">
                                     <div class="form-group">
                                         <label for="task-title">Title</label>
                                         <input type="text" required class="form-control" id="task-title" placeholder="Task name" required/>
-                                      </div>
-                                      <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="asignee">Task asignee</label>
                                         <select class="form-control" id="asignee">
                                           <option>Nikhil</option>
@@ -81,126 +88,129 @@
                                           <option>Yash</option>
                                           <option>Richa</option>
                                         </select>
-                                      </div>
-                                      <div class="form-group">
-                                        <label >Task Assigned on</label>
-                                        <input type="date" name="AssignedOn" max="3000-12-31"
-                                        id="AssignedOn" min="1000-01-01" class="form-control" oninput="updateduedate();">
-                                      </div>
-                                      <div class="form-group">
-                                        <label >Due Date</label>
-                                        <input type="date" name="DueDate" max="3000-12-31" 
-                                        id ="DueDate" min="1000-01-01" class="form-control">
-                                      </div>
-                                      <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Task Assigned on</label>
+                                        <input type="date" name="AssignedOn" max="3000-12-31" id="AssignedOn" min="1000-01-01" class="form-control" data-date-format='yy-mm-dd' oninput="updateduedate();">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Due Date</label>
+                                        <input type="date" name="DueDate" max="3000-12-31" id="DueDate" min="1000-01-01" data-date-format='yy-mm-dd' class="form-control">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="task-description">Description</label>
                                         <textarea class="form-control" id="task-description" rows="3" style="resize: vertical;"></textarea>
-                                      </div>
-                                      <button type="submit" class="btn btn-primary" id="add-task-button">Submit</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="add-task-button">Submit</button>
                                 </form>
                             </div>
-                          </div>
-                          
                         </div>
+
                     </div>
                 </div>
-            </section>
-            <section id="columns">
-                <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(255, 193, 117);">Backlog</h3>
-                    <ul class="tasks" id="tasks-added">
-                        
-                            <li class="task fill" draggable="true" data-toggle="tooltip" data-placement="top" title="Hooray!">
+            </div>
+        </section>
+        <section id="columns">
+            <div class="column dropzone">
+                <h3 class="column-title" style="background-color: rgb(255, 193, 117);">Backlog</h3>
+                <ul class="tasks" id="tasks-added">
+
+                    <!-- <li class="task fill" draggable="true" data-toggle="tooltip" data-placement="top" title="Hooray!">
                                 <div class="task-title">task1</div>
                                 
-                                <div class="row" >
-                                  <div class="col-md-6 task-dates">13,jan 2020</div>
-                                  <div class="col-md-6 task-dates" style="display: flex;" ><i class="fa fa-user fa-2x" aria-hidden="true"></i><div>Nikhil</div></div>
-                                </div>
+                                <div class="task-dates">13,jan 2020</div>
+                                  
+                              
+                                
                                 <div class="task-content">create todolist1 </div>
                                 
-                                <div class="trash" data-toggle="modal" data-target="#myModal2"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></div>
                                 
-                                <div class="edit" data-toggle="modal" data-target="#myModal3"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
-                            </li>
-                        
-                    </ul>
-                </div>
+                                
+                                  <i class="fa fa-user fa-2x user-icon" aria-hidden="true"></i>
+                                  <div class="user-name" >Nikhil</div>
+                                
+                                <button class="trash" data-toggle="modal" data-target="#myModal2"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
+                                
+                                <button class="edit" data-toggle="modal" data-target="#myModal3"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></button>
+                            </li> -->
 
-                
-                <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(128, 255, 212);">Todo</h3>
-                </div>
-                <div class="column dropzone">
-                    <h3 class="column-title" style="background-color: rgb(116, 250, 255);">Review</h3>
-                </div>
-                <div class="column dropzone" >
-                    <h3 class="column-title"style="background-color: rgb(92, 186, 19);">Done</h3>
-                </div>
+                </ul>
+            </div>
 
 
+            <div class="column dropzone">
+                <h3 class="column-title" style="background-color: rgb(128, 255, 212);">Todo</h3>
+            </div>
+            <div class="column dropzone">
+                <h3 class="column-title" style="background-color: rgb(116, 250, 255);">Review</h3>
+            </div>
+            <div class="column dropzone">
+                <h3 class="column-title" style="background-color: rgb(92, 186, 19);">Done</h3>
+            </div>
 
-                <!-- delete modal -->
-                <div id="myModal2" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-                
+
+
+            <!-- delete modal -->
+            <div id="myModal2" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
                     <!-- Modal content-->
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Confirm to delete</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Do you want to delete the task? This action is not reversable!</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteTask()">Delete</button>
-                      </div>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirm to delete</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you want to delete the task? This action is not reversable!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteTask()">Delete</button>
+                        </div>
                     </div>
-                
-                  </div>
-                </div>
 
-                
-                <div id="myModal2" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-                
+                </div>
+            </div>
+
+
+            <div id="myModal2" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
                     <!-- Modal content-->
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Confirm to delete</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div id="DeleteMessage">Task is being deleted.</div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirm to delete</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="DeleteMessage">Task is being deleted.</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                
-                  </div>
-                </div>
 
-                <!-- edit modal -->
-                <div class="modal fade" id="myModal3" role="dialog">
-                  <div class="modal-dialog">
-                  
+                </div>
+            </div>
+
+            <!-- edit modal -->
+            <div class="modal fade" id="myModal3" onshown="fetchData()" role="dialog">
+                <div class="modal-dialog">
+
                     <!-- Modal content-->
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;"><strong>Edit Task details</strong></h4>
-                      </div>
-                      <div class="modal-body">
-                          <form id="task-value-form">
-                              <div class="form-group">
-                                  <label for="task-title">Title</label>
-                                  <input type="text" required class="form-control" id="task-title" placeholder="Task name" required/>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" style="text-align: center;"><strong>Edit Task details</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="task-value-form">
+                                <div class="form-group">
+                                    <label for="task-title">Title</label>
+                                    <input type="text" required class="form-control" id="task-title-form-edit" placeholder="Task name" required/>
                                 </div>
                                 <div class="form-group">
-                                  <label for="asignee">Task asignee</label>
-                                  <select class="form-control" id="asignee">
+                                    <label for="asignee">Task asignee</label>
+                                    <select class="form-control" id="asignee-form-edit">
                                     <option>Nikhil</option>
                                     <option>Suraj</option>
                                     <option>Tushar</option>
@@ -209,29 +219,28 @@
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label >Task Assigned on</label>
-                                  <input type="date" name="AssignedOn" max="3000-12-31"
-                                  id="AssignedOn" min="1000-01-01" class="form-control" oninput="updateduedate();">
+                                    <label>Task Assigned on</label>
+                                    <input type="date" name="AssignedOn" max="3000-12-31" id="AssignedOn" min="1000-01-01" class="form-control" data-date-format='yy-mm-dd' oninput="updateduedate();">
                                 </div>
                                 <div class="form-group">
-                                  <label >Due Date</label>
-                                  <input type="date" name="DueDate" max="3000-12-31" 
-                                  id ="DueDate" min="1000-01-01" class="form-control">
+                                    <label>Due Date</label>
+                                    <input type="date" name="DueDate" max="3000-12-31" id="DueDate" min="1000-01-01" data-date-format='yy-mm-dd' class="form-control">
                                 </div>
                                 <div class="form-group">
-                                  <label for="task-description">Description</label>
-                                  <textarea class="form-control" id="task-description" rows="3" style="resize: vertical;"></textarea>
+                                    <label for="task-description">Description</label>
+                                    <textarea class="form-control" id="task-description-edit-form" rows="3" style="resize: vertical;">llol</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="add-task-button">Submit</button>
-                          </form>
-                      </div>
+                            </form>
+                        </div>
                     </div>
-                    
-                  </div>
-              </div>
-            </section>
 
-            
-        </main>
-    </body>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+</body>
+
 </html>

@@ -1,11 +1,12 @@
 const trash = "https://image.flaticon.com/icons/svg/1214/1214428.svg"
-const url = "https://todo-board-deploy.herokuapp.com/post/"
-// const url = "http://localhost:3000/post/"
-document.getElementById('add-task').addEventListener('click', function () {
+    // const url = "https://todo-board-deploy.herokuapp.com/post/"
+const url = "http://localhost:3000/post/"
+document.getElementById('add-task').addEventListener('click', function() {
     let taskValue = document.getElementById('task-value').value;
     if (taskValue) addTask(taskValue);
     document.getElementById('task-value').value = '';
 });
+
 function success() {
     if (document.getElementById("task-value").value === "") {
         document.getElementById('add-task').disabled = true;
@@ -38,7 +39,7 @@ const addTask = (taskValue) => {
     tasks.insertBefore(task, tasks.childNodes[0]);
 }
 
-const removeTask = async (event) => {
+const removeTask = async(event) => {
 
     let tasks = event.target.parentNode.parentNode.parentNode;
     let task = event.target.parentNode.parentNode;
@@ -46,8 +47,8 @@ const removeTask = async (event) => {
     console.log(taskId);
     // document.getElementById("DeleteMessage").innerHTML= "jjj"
     const rawResponse = await fetch(url + taskId, {
-        method: 'DELETE',
-    })
+            method: 'DELETE',
+        })
         .then(res => res.json()) // or res.json()
         .then(res => console.log(res));
 
@@ -109,7 +110,7 @@ for (const dropzone of dropzones) {
 }
 
 
-document.getElementById('add-task-button').addEventListener('click', async function (event) {
+document.getElementById('add-task-button').addEventListener('click', async function(event) {
     let taskTitle = document.getElementById('task-title').value;
     let taskAsignee = document.getElementById('asignee').value;
     let taskAssignedOn = document.getElementById('AssignedOn').value;
@@ -151,20 +152,32 @@ document.getElementById('add-task-button').addEventListener('click', async funct
     document.getElementById('task-description').value = '';
 
 });
-
-const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDueDate, taskDescription, _id) => {
+var taskObject = {};
+const addTaskDescription = async(taskTitle, taskAsignee, taskAssignedOn, taskDueDate, taskDescription, _id) => {
+    let formattedAssignedDate = new Date(taskAssignedOn).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    }).replace(/ /g, '-');
+    let formattedDueDate = new Date(taskDueDate).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    }).replace(/ /g, '-');
+    taskObject[_id] = {
+        title: taskTitle,
+        asignee: taskAsignee,
+        AssignedOn: taskAssignedOn,
+        DueDate: taskDueDate,
+        description: taskDescription
+    };
     let task = document.createElement('li');
     task.classList.add('task');
     task.classList.add('fill');
     task.setAttribute("draggable", "true");
     task.setAttribute("data-toggle", "tooltip");
     task.setAttribute("data-placement", "top")
-    let formattedAssignedDate = new Date(taskAssignedOn).toLocaleDateString('en-GB', {
-        day: 'numeric', month: 'short', year: 'numeric'
-    }).replace(/ /g, '-');
-    let formattedDueDate = new Date(taskDueDate).toLocaleDateString('en-GB', {
-        day: 'numeric', month: 'short', year: 'numeric'
-    }).replace(/ /g, '-');
+
     task.setAttribute("title", "Due date: " + formattedDueDate + "\nAssigned on : " + formattedAssignedDate + "\nAssigneed By : " + taskAsignee)
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
@@ -176,38 +189,36 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     Title.innerText = taskTitle;
 
 
-    let row = document.createElement('div');
-    row.classList.add('row');
-    row.classList.add('username-row');
+    // let row = document.createElement('div');
+    // row.classList.add('row');
+    // row.classList.add('username-row');
 
     let AssignedOn = document.createElement('div');
-    AssignedOn.classList.add('col-md-6');
+    // AssignedOn.classList.add('col-md-6');
     AssignedOn.classList.add('task-dates');
-    let date = new Date(taskAssignedOn);
-    let formattedDate = date.toLocaleDateString('en-GB', {
-        day: 'numeric', month: 'short', year: 'numeric'
-    }).replace(/ /g, '-');
-    AssignedOn.innerText = formattedDate;
+    AssignedOn.innerText = formattedAssignedDate;
 
-    let user = document.createElement('div');
-    user.classList.add('col-md-6');
-    user.classList.add('task-dates');
+    // let user = document.createElement('div');
+    // user.classList.add('col-md-6');
+    // user.classList.add('task-dates');
 
 
     let usericon = document.createElement('i');
     usericon.classList.add('fa');
-    usericon.classList.add('fa-user')
-    usericon.classList.add("fa-lg")
+    usericon.classList.add('fa-user');
+    // usericon.classList.add("fa-lg");
+    usericon.classList.add("user-icon");
     usericon.setAttribute("aria-hidden", "true");
 
     let username = document.createElement('div');
+    username.classList.add("user-name");
     username.innerText = taskAsignee;
 
-    user.appendChild(usericon);
-    user.appendChild(username);
+    // user.appendChild(usericon);
+    // user.appendChild(username);
 
-    row.appendChild(AssignedOn);
-    row.appendChild(user);
+    // row.appendChild(AssignedOn);
+    // row.appendChild(user);
     let taskContent = document.createElement('div');
     taskContent.classList.add('task-content');
     taskContent.innerText = taskDescription;
@@ -233,7 +244,7 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     edit.classList.add('edit');
     edit.setAttribute("data-toggle", "modal");
     edit.setAttribute("data-target", "#myModal3")
-    edit.addEventListener('click', fixId);
+    edit.addEventListener('click', fixTask);
 
     let editicon = document.createElement('i');
     editicon.classList.add('fa');
@@ -244,10 +255,12 @@ const addTaskDescription = async (taskTitle, taskAsignee, taskAssignedOn, taskDu
     edit.appendChild(editicon);
 
     task.appendChild(Title);
-    task.appendChild(row);
+    task.appendChild(AssignedOn);
+    task.appendChild(usericon);
+    task.appendChild(username);
     task.appendChild(taskContent);
     task.appendChild(trash);
-    task.appendChild(edit)
+    task.appendChild(edit);
 
     let tasks = document.getElementById('tasks-added');
     tasks.insertBefore(task, tasks.childNodes[0]);
@@ -265,10 +278,24 @@ const fixId = (event) => {
     deleteTaskevent = event.target.parentNode.parentNode;
 }
 
+var editTaskId = null
+var editTasksevent = null;
+var editTaskevent = null;
+const fixTask = async(event) => {
+
+    editTaskId = event.target.parentNode.parentNode.getAttribute("name");
+    console.log(taskObject[editTaskId]);
+
+    editTasksevent = event.target.parentNode.parentNode.parentNode;
+    console.log(editTasksevent);
+    editTaskevent = event.target.parentNode.parentNode;
+    console.log(editTaskevent);
+}
+
 async function deleteTask(event) {
     const rawResponse = await fetch(url + deleteTaskId, {
-        method: 'DELETE',
-    })
+            method: 'DELETE',
+        })
         .then(res => res.json()) // or res.json()
         .then(res => console.log(res));
 
@@ -294,7 +321,20 @@ async function getTask() {
     }
     // addTaskDescription()
 }
+$(document).ready(function() {
+    $('#AssignedOn').datepicker();
+    $('#AssignedOn').datepicker('setDate', 'today');
+});
 
+$('#myModal3').on('show.bs.modal', function(e) {
+    console.log(taskObject[editTaskId]["description"]);
+    document.getElementById("task-title-form-edit").value = (taskObject[editTaskId]["title"]);
+    document.getElementById("asignee-form-edit").value = (taskObject[editTaskId]["asignee"]);
+    document.getElementById("task-description-edit-form").innerText = (taskObject[editTaskId]["description"]);
+
+    // document.getElementById("AssignedOn").placeholder=new Date(taskObject[editTaskId]["AssignedOn"]).toLocaleDateString('en-CA');
+    // $( "#AssignedOn" ).datepicker( "setDate", new Date(taskObject[editTaskId]["AssignedOn"]).toLocaleDateString('en-CA'));
+});
 // fetch(url)
 // .then(results=>{
 //     return results.json();
@@ -339,3 +379,8 @@ async function getTask() {
 //add tick to navigate to next paletes/dropzone
 
 //delete on close , "do you want to delete the task , are u sure" , dleete button color
+
+
+//on drag drop add + sign
+//date top right small size dull color
+//shift assing
